@@ -1,8 +1,8 @@
 import {useEffect, useRef} from 'react';
-import api from 'axios';
 import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
+import api from '../../axiosConfig'
 
 import React from 'react'
 
@@ -25,7 +25,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
         {
             const response = await api.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
 
-            const updatedReviews = [...reviews, {body:rev.value}];
+            const updatedReviews = [ {body:rev.value}];
     
             rev.value = "";
     
@@ -62,6 +62,22 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                         </Row>
                     </>
                 }
+                 {
+                    movie?.reviewIds?.map((sub) => {
+                        return(
+                            <>
+                                <Row>
+                                    <Col>{sub.body}</Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                <hr />
+                            </Col>
+                                </Row>
+                            </>
+                        )
+                    })
+                }           
                 {
                     reviews?.map((r) => {
                         return(
@@ -70,10 +86,10 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                                     <Col>{r.body}</Col>
                                 </Row>
                                 <Row>
-                            <Col>
+                                    <Col>
                                 <hr />
                             </Col>
-                        </Row>
+                                </Row>
                             </>
                         )
                     })
