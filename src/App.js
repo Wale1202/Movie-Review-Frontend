@@ -43,7 +43,7 @@ function App() {
       console.error(error);
      }
    }
-
+   // use Effect
   useEffect(() =>{
     getMovies();
   },[])
